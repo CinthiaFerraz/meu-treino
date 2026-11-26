@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#17251f">
+  <meta name="description" content="Seu diário de musculação em casa, com histórico e evolução de cargas.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <title>Meu Treino — Diário de musculação</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">M</span><div><strong>meu treino</strong><small>diário de musculação</small></div></div>
+    <button id="installBtn" class="button button-outline hidden">Instalar app</button>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">TREINO EM CASA</p>
+        <h1>Constância hoje.<br><em>Força amanhã.</em></h1>
+        <p class="hero-copy">Registre suas sessões, acompanhe suas cargas e veja sua evolução — mesmo sem internet.</p>
+      </div>
+      <div class="hero-stat"><span id="totalSessions">0</span><small>treinos registrados</small></div>
+    </section>
+
+    <nav class="tabs" aria-label="Navegação principal">
+      <button class="tab active" data-view="workout">Treino</button>
+      <button class="tab" data-view="history">Histórico</button>
+      <button class="tab" data-view="progress">Evolução</button>
+    </nav>
+
+    <section id="view-workout" class="view">
+      <div class="section-heading">
+        <div><p class="eyebrow">SUA FICHA</p><h2>Escolha o treino</h2></div>
+        <span class="pill">4 dias por semana</span>
+      </div>
+      <div class="day-grid" id="dayGrid"></div>
+      <div id="workoutPanel" class="panel hidden">
+        <div class="workout-head">
+          <div><p class="eyebrow" id="dayEyebrow"></p><h2 id="dayTitle"></h2><p class="muted" id="daySubtitle"></p></div>
+          <label class="date-label">Data<input id="workoutDate" type="date"></label>
+        </div>
+        <div id="exerciseList"></div>
+        <div class="session-footer">
+          <div><strong id="completionText">0 de 0 séries</strong><small>Marque cada série concluída.</small></div>
+          <button id="saveWorkout" class="button button-primary">Salvar treino</button>
+        </div>
+        <p id="saveMessage" class="save-message" role="status"></p>
+      </div>
+      <div class="panel timer-panel">
+        <div><p class="eyebrow">INTERVALO ENTRE SÉRIES</p><h2>Cronômetro</h2><p class="muted">Escolha o descanso e inicie a contagem.</p></div>
+        <div class="timer">
+          <div class="timer-display" id="timerDisplay">01:00</div>
+          <div class="timer-progress"><span id="timerProgress"></span></div>
+          <div class="timer-controls">
+            <select id="timerPreset" aria-label="Duração do intervalo"><option value="45">45 segundos</option><option value="60" selected>60 segundos</option><option value="90">90 segundos</option></select>
+            <button id="timerStart" class="button button-primary">Iniciar</button>
+            <button id="timerReset" class="button button-outline">Zerar</button>
+          </div>
+          <p id="timerStatus" class="muted timer-status" aria-live="polite">Pronto para começar</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-history" class="view hidden">
+      <div class="section-heading"><div><p class="eyebrow">SEU CAMINHO</p><h2>Histórico de treinos</h2></div><button id="exportBtn" class="button button-outline">Exportar backup</button></div>
+      <div id="historyList" class="history-list"></div>
+      <div class="backup-row">
+        <label class="button button-outline file-button">Importar backup<input id="importFile" type="file" accept="application/json,.json"></label>
+        <span class="muted">Seus dados ficam salvos neste aparelho e navegador.</span>
+      </div>
+    </section>
+
+    <section id="view-progress" class="view hidden">
+      <div class="section-heading"><div><p class="eyebrow">ACOMPANHE AS CONQUISTAS</p><h2>Evolução de cargas</h2></div></div>
+      <div class="panel chart-panel">
+        <label class="field-label" for="exerciseSelect">Exercício</label>
+        <select id="exerciseSelect"></select>
+        <div class="chart-wrap"><canvas id="progressChart" aria-label="Gráfico de evolução de carga"></canvas><p id="chartEmpty" class="chart-empty hidden">Registre o mesmo exercício em mais de um treino para visualizar sua evolução.</p></div>
+        <div id="chartSummary" class="chart-summary"></div>
+      </div>
+      <div class="panel">
+        <h3>Resumo</h3>
+        <div class="summary-grid"><div><strong id="summaryCount">0</strong><small>sessões</small></div><div><strong id="summaryExercises">0</strong><small>exercícios registrados</small></div><div><strong id="summaryBest">—</strong><small>maior carga registrada</small></div></div>
+      </div>
+    </section>
+
+    <footer><span>MEU TREINO</span><span>Seus dados são seus. Faça backups regularmente.</span></footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
